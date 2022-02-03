@@ -1,0 +1,21 @@
+<h1>Países</h1>
+
+<form action="/pais/c">
+	<input type="submit" value="Nuevo país" />
+</form>
+
+<h3>Lista de países</h3>
+
+<table border="1">
+<tr>
+	<th>
+		Nombre
+	</th>
+</tr>
+
+<tr th:each="pais:${paises} ">
+	<td th:text="${pais.nombre}"/>
+</tr>
+
+</table>
+<br />
