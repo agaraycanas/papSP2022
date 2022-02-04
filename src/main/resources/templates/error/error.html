@@ -1,9 +1,15 @@
-<h1>Ha ocurrido un error</h1>
+<head>
+	<meta charset="UTF-8" />
+</head>
 
-<p><span th:text="${mensajeError}"/></p>
+<body>
+	<h1>Ha ocurrido un error</h1>
 
-<p>Pulsa el botón para volver al menú principal</p>
+	<p><span th:text="${mensajeError}" /></p>
 
-<form action="/">
-	<input type="submit" value="Volver"/>
-</form>
+	<p>Pulsa el botón para volver al menú principal</p>
+
+	<form action="/">
+		<input type="submit" value="Volver" />
+	</form>
+</body>

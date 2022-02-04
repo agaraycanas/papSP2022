@@ -1,25 +1,27 @@
-<h1>Aficiones</h1>
+<div class="container">
+	<h1>Aficiones</h1>
 
-<form action="/aficion/c">
-	<input type="submit" value="Nueva afición" />
-</form>
+	<form action="/aficion/c">
+		<input type="submit" value="Nueva afición" />
+	</form>
 
-<h3>Lista de aficiones</h3>
+	<h3>Lista de aficiones</h3>
 
-<table border="1">
-<tr>
-	<th>
-		Nombre
-	</th>
-</tr>
+	<table border="1">
+		<tr>
+			<th>
+				Nombre
+			</th>
+		</tr>
 
-<tr th:each="aficion:${aficiones} ">
-	<td th:text="${aficion.nombre}"/>
-</tr>
+		<tr th:each="aficion:${aficiones} ">
+			<td th:text="${aficion.nombre}" />
+		</tr>
 
-</table>
-<br />
+	</table>
+	<br />
 
-<form action="/">
-	<input type="submit" value="Volver"/>
-</form>
+	<form action="/">
+		<input type="submit" value="Volver" />
+	</form>
+</div>

@@ -23,7 +23,8 @@ public class AficionController {
 	public String r(ModelMap m) {
 		List<Aficion> aficiones = aficionRepository.findAll();
 		m.put("aficiones", aficiones);
-		return "aficion/r";
+		m.put("view", "aficion/r");
+		return "_t/frame";
 	}
 
 	@GetMapping("/aficion/c")
