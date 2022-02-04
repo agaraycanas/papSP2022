@@ -2,7 +2,9 @@ package org.agaray.pap2021.controller;
 
 import java.util.List;
 
+import org.agaray.pap2021.entities.Aficion;
 import org.agaray.pap2021.entities.Pais;
+import org.agaray.pap2021.repository.AficionRepository;
 import org.agaray.pap2021.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,31 +14,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class PaisController {
+public class AficionController {
 
 	@Autowired
-	private PaisRepository paisRepository;
+	private AficionRepository aficionRepository;
 
-	@GetMapping("/pais/r")
+	@GetMapping("/aficion/r")
 	public String r(ModelMap m) {
-		List<Pais> paises = paisRepository.findAll();
-		m.put("paises", paises);
-		return "pais/r";
+		List<Aficion> aficiones = aficionRepository.findAll();
+		m.put("aficiones", aficiones);
+		return "aficion/r";
 	}
 
-	@GetMapping("/pais/c")
+	@GetMapping("/aficion/c")
 	public String c() {
-		return "pais/c";
+		return "aficion/c";
 	}
 
-	@PostMapping("/pais/c")
+	@PostMapping("/aficion/c")
 	public String cPost(@RequestParam("nombre") String nombre) {
 		String returnLocation = "";
 		try {
-			paisRepository.save(new Pais(nombre));
-			returnLocation = "redirect:/pais/r";
+			aficionRepository.save(new Aficion(nombre));
+			returnLocation = "redirect:/aficion/r";
 		} catch (Exception e) {
-			returnLocation = "redirect:/errorDisplay?msg=El país "+nombre+" ya existe";
+			returnLocation = "redirect:/errorDisplay?msg=La afición "+nombre+" ya existe";
 		}
 		return returnLocation;
 	}

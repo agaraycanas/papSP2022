@@ -1,0 +1,25 @@
+<h1>Personas</h1>
+
+<form action="/persona/c">
+	<input type="submit" value="Nueva persona" />
+</form>
+
+<h3>Lista de personas</h3>
+
+<table border="1">
+<tr>
+	<th>
+		Nombre
+	</th>
+</tr>
+
+<tr th:each="persona:${personas} ">
+	<td th:text="${persona.nombre}"/>
+</tr>
+
+</table>
+<br />
+
+<form action="/">
+	<input type="submit" value="Volver"/>
+</form>
