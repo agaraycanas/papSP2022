@@ -1,25 +1,29 @@
-<h1>Personas</h1>
+<div class="container">
+	<div class="row">
+		<form action="/persona/c">
+			<input type="submit" value="Nueva persona" />
+		</form>
 
-<form action="/persona/c">
-	<input type="submit" value="Nueva persona" />
-</form>
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
 
-<h3>Lista de personas</h3>
+	<h3>Lista de personas</h3>
 
-<table border="1">
-<tr>
-	<th>
-		Nombre
-	</th>
-</tr>
+	<table class="table table-striped">
+		<tr>
+			<th>
+				Nombre
+			</th>
+		</tr>
 
-<tr th:each="persona:${personas} ">
-	<td th:text="${persona.nombre}"/>
-</tr>
+		<tr th:each="persona:${personas} ">
+			<td th:text="${persona.nombre}" />
+		</tr>
 
-</table>
-<br />
+	</table>
+	<br />
 
-<form action="/">
-	<input type="submit" value="Volver"/>
-</form>
+
+</div>

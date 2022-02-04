@@ -28,8 +28,9 @@ public class AficionController {
 	}
 
 	@GetMapping("/aficion/c")
-	public String c() {
-		return "aficion/c";
+	public String c(ModelMap m) {
+		m.put("view", "aficion/c");
+		return "_t/frame";
 	}
 
 	@PostMapping("/aficion/c")
@@ -39,7 +40,7 @@ public class AficionController {
 			aficionRepository.save(new Aficion(nombre));
 			returnLocation = "redirect:/aficion/r";
 		} catch (Exception e) {
-			returnLocation = "redirect:/errorDisplay?msg=La afición "+nombre+" ya existe";
+			returnLocation = "redirect:/errorDisplay?msg=La afición " + nombre + " ya existe";
 		}
 		return returnLocation;
 	}

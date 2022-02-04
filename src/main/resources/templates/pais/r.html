@@ -1,25 +1,28 @@
-<h1>Países</h1>
+<div class="container">
+	<div class="row">
+		<form action="/pais/c">
+			<input type="submit" value="Nuevo país" />
+		</form>
 
-<form action="/pais/c">
-	<input type="submit" value="Nuevo país" />
-</form>
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
 
-<h3>Lista de países</h3>
+	<h3>Lista de países</h3>
 
-<table border="1">
-<tr>
-	<th>
-		Nombre
-	</th>
-</tr>
+	<table class="table table-striped">
+		<tr>
+			<th>
+				Nombre
+			</th>
+		</tr>
 
-<tr th:each="pais:${paises} ">
-	<td th:text="${pais.nombre}"/>
-</tr>
+		<tr th:each="pais:${paises} ">
+			<td th:text="${pais.nombre}" />
+		</tr>
 
-</table>
-<br />
+	</table>
+	<br />
 
-<form action="/">
-	<input type="submit" value="Volver"/>
-</form>
+	</diviv>

@@ -1,13 +1,17 @@
 <div class="container">
-	<h1>Aficiones</h1>
+	<div class="row">
+		<form action="/aficion/c">
+			<input type="submit" value="Nueva afición" />
+		</form>
 
-	<form action="/aficion/c">
-		<input type="submit" value="Nueva afición" />
-	</form>
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
 
 	<h3>Lista de aficiones</h3>
 
-	<table border="1">
+	<table class="table table-striped">
 		<tr>
 			<th>
 				Nombre
@@ -21,7 +25,5 @@
 	</table>
 	<br />
 
-	<form action="/">
-		<input type="submit" value="Volver" />
-	</form>
+
 </div>

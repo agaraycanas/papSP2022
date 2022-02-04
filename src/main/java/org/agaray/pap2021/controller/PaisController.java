@@ -21,12 +21,14 @@ public class PaisController {
 	public String r(ModelMap m) {
 		List<Pais> paises = paisRepository.findAll();
 		m.put("paises", paises);
-		return "pais/r";
+		m.put("view", "pais/r");
+		return "_t/frame";
 	}
 
 	@GetMapping("/pais/c")
-	public String c() {
-		return "pais/c";
+	public String c(ModelMap m) {
+		m.put("view", "pais/c");
+		return "_t/frame";
 	}
 
 	@PostMapping("/pais/c")
@@ -36,7 +38,7 @@ public class PaisController {
 			paisRepository.save(new Pais(nombre));
 			returnLocation = "redirect:/pais/r";
 		} catch (Exception e) {
-			returnLocation = "redirect:/errorDisplay?msg=El país "+nombre+" ya existe";
+			returnLocation = "redirect:/errorDisplay?msg=El país " + nombre + " ya existe";
 		}
 		return returnLocation;
 	}
