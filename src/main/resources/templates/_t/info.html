@@ -1,7 +1,9 @@
 <div class="container">
-	<h3 class="alert alert-<?=$severity?>"><?=$msg?></h3>
+	<h4 th:class="|alert alert-${severity}|">
+		<span th:text="${mensaje}"></span>
+	</h4>
 
-	<form action="<?=$uri?>">
-		<input type="submit" value="Volver" autofocus="autofocus"/>
+	<form th:action="${link}" method="get">
+		<input class="button" type="submit" value="Volver" autofocus="autofocus">
 	</form>
 </div>
