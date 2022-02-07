@@ -1,10 +1,11 @@
 <header class="container">
-<!--
-    <?php if (! isset($_header['usuario'])): ?>
-    	<a href="<?=base_url()?>persona/login">LOGIN</a>
-    <?php else: ?>
-        <?= $_header['usuario']->nombre ?> / 
-        <a href="<?=base_url()?>persona/logout">LOGOUT</a>
-    <?php endif; ?>
-    -->
+	<a th:if="${session.persona==null}" href="/login">
+		LOGIN
+	</a>
+	
+	<div th:unless="${session.persona==null}">
+		<span th:text="${session.persona.nombre}"/>
+		/
+		<a href="/logout">LOGOUT</a>
+	</div>
 </header>

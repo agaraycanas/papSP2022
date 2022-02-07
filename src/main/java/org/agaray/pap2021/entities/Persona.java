@@ -6,22 +6,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Entity
 public class Persona {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Column(unique = true)
 	private String nombre;
+	private String pwd;
 
 	//========================
 	public Persona() {
 		this.nombre="dormir";
 	}
 	
-	public Persona(String nombre) {
+	public Persona(String nombre,String pwd) {
 		this.nombre = nombre;
+		this.pwd = encriptar(pwd);
 	}
 	//========================
 
@@ -40,8 +45,19 @@ public class Persona {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public String getPwd() {
+		return this.pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = encriptar(pwd);
+	}
 	
 	
 	//========================
 	
+	private String encriptar(String pwd) {
+		return (new BCryptPasswordEncoder()).encode(pwd); 
+	}
 }
