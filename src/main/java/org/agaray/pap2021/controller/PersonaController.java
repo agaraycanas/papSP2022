@@ -21,6 +21,9 @@ public class PersonaController {
 	@Autowired
 	private PersonaRepository personaRepository;
 
+	@Autowired
+	private PaisRepository paisRepository;
+
 	@GetMapping("/persona/r")
 	public String r(ModelMap m) {
 		List<Persona> personas = personaRepository.findAll();
@@ -31,6 +34,7 @@ public class PersonaController {
 	@GetMapping("/persona/c")
 	public String c(
 			ModelMap m) {
+		m.put("paises", paisRepository.findAll());
 		m.put("view", "persona/c");
 		return "_t/frame";
 	}
@@ -38,11 +42,12 @@ public class PersonaController {
 	@PostMapping("/persona/c")
 	public String cPost(
 			@RequestParam("nombre") String nombre,
-			@RequestParam("pwd") String pwd
+			@RequestParam("pwd") String pwd,
+			@RequestParam("idPaisNace") Long idPaisNace
 			) {
 		String returnLocation = "";
 		try {
-			personaRepository.save(new Persona(nombre,pwd));
+			personaRepository.save(new Persona(nombre,pwd,paisRepository.getById(idPaisNace)));
 			returnLocation = "redirect:/persona/r";
 		} catch (Exception e) {
 			returnLocation = "redirect:/errorDisplay?msg=Error indeterminado creando persona";

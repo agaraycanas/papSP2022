@@ -10,6 +10,15 @@
 		<input id="idPwd" type="password" name="pwd" />
 		<br />
 		
+		<fieldset>
+		<legend>
+			País de nacimiento
+		</legend>
+		<select name="idPaisNace">
+			<option th:each="pais:${paises}" th:text="${pais.nombre}" th:value="${pais.id}"/>
+		</select>
+		</fieldset>
+		
 		<input type="submit" value="Nueva persona" />
 	</form>
 	<br />

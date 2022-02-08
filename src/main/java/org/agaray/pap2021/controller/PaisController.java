@@ -3,6 +3,9 @@ package org.agaray.pap2021.controller;
 import java.util.List;
 
 import org.agaray.pap2021.entities.Pais;
+import org.agaray.pap2021.exception.DangerException;
+import org.agaray.pap2021.exception.InfoException;
+import org.agaray.pap2021.exception.PRG;
 import org.agaray.pap2021.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,14 +35,12 @@ public class PaisController {
 	}
 
 	@PostMapping("/pais/c")
-	public String cPost(@RequestParam("nombre") String nombre) {
-		String returnLocation = "";
+	public String cPost(@RequestParam("nombre") String nombre) throws DangerException {
 		try {
 			paisRepository.save(new Pais(nombre));
-			returnLocation = "redirect:/pais/r";
 		} catch (Exception e) {
-			returnLocation = "redirect:/errorDisplay?msg=El país " + nombre + " ya existe";
+			PRG.error("El país "+nombre+" ya existe", "/pais/c");
 		}
-		return returnLocation;
+		return "redirect:/pais/r";
 	}
 }
