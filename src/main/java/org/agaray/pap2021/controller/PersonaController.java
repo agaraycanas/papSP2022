@@ -2,9 +2,9 @@ package org.agaray.pap2021.controller;
 
 import java.util.List;
 
-import org.agaray.pap2021.entities.Aficion;
-import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.entities.Persona;
+import org.agaray.pap2021.exception.DangerException;
+import org.agaray.pap2021.exception.PRG;
 import org.agaray.pap2021.repository.AficionRepository;
 import org.agaray.pap2021.repository.PaisRepository;
 import org.agaray.pap2021.repository.PersonaRepository;
@@ -24,6 +24,9 @@ public class PersonaController {
 	@Autowired
 	private PaisRepository paisRepository;
 
+	@Autowired
+	private AficionRepository aficionRepository;
+
 	@GetMapping("/persona/r")
 	public String r(ModelMap m) {
 		List<Persona> personas = personaRepository.findAll();
@@ -35,6 +38,7 @@ public class PersonaController {
 	public String c(
 			ModelMap m) {
 		m.put("paises", paisRepository.findAll());
+		m.put("aficiones", aficionRepository.findAll());
 		m.put("view", "persona/c");
 		return "_t/frame";
 	}
@@ -43,15 +47,20 @@ public class PersonaController {
 	public String cPost(
 			@RequestParam("nombre") String nombre,
 			@RequestParam("pwd") String pwd,
-			@RequestParam("idPaisNace") Long idPaisNace
-			) {
-		String returnLocation = "";
+			@RequestParam("idPaisNace") Long idPaisNace,
+			@RequestParam(value="idAficion[]",required=false) List<Long> idsAficion
+			) throws DangerException {
 		try {
-			personaRepository.save(new Persona(nombre,pwd,paisRepository.getById(idPaisNace)));
-			returnLocation = "redirect:/persona/r";
+			Persona persona = new Persona(nombre,pwd,paisRepository.getById(idPaisNace));
+			if (idsAficion!=null) {
+				for (Long idAficion:idsAficion) {
+					persona.addAficionGusta(aficionRepository.getById(idAficion));
+				}
+			}
+			personaRepository.save(persona);
 		} catch (Exception e) {
-			returnLocation = "redirect:/errorDisplay?msg=Error indeterminado creando persona";
+			PRG.error("Error indeterminado al crear la persona "+e.getMessage());
 		}
-		return returnLocation;
+		return "redirect:/persona/r";
 	}
 }

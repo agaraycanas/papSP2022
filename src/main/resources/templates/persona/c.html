@@ -19,6 +19,16 @@
 		</select>
 		</fieldset>
 		
+		<fieldset>
+		<legend>
+			Aficiones (gustan)
+		</legend>
+			<div th:each="aficion:${aficiones}">
+				<input  th:id="|id-${aficion.id}|" type="checkbox" name="idAficion[]" th:value="${aficion.id}"/>
+				<label th:for="|id-${aficion.id}|" th:text="${aficion.nombre}"/>
+			</div>
+		</fieldset>		
+		
 		<input type="submit" value="Nueva persona" />
 	</form>
 	<br />

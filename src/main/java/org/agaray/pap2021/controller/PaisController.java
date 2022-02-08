@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.exception.DangerException;
-import org.agaray.pap2021.exception.InfoException;
 import org.agaray.pap2021.exception.PRG;
 import org.agaray.pap2021.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;

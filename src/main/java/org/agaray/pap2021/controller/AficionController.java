@@ -3,9 +3,7 @@ package org.agaray.pap2021.controller;
 import java.util.List;
 
 import org.agaray.pap2021.entities.Aficion;
-import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.repository.AficionRepository;
-import org.agaray.pap2021.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

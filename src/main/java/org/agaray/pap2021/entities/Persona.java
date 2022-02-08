@@ -1,10 +1,14 @@
 package org.agaray.pap2021.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,10 +26,14 @@ public class Persona {
 	
 	@ManyToOne
 	private Pais nace;
+	
+	@ManyToMany
+	private Collection<Aficion> aficionesGusta;
 
 	//========================
 	public Persona() {
 		this.nombre="dormir";
+		this.aficionesGusta = new ArrayList<Aficion>();
 	}
 	
 	public Persona(String nombre,String pwd,Pais nace) {
@@ -33,6 +41,7 @@ public class Persona {
 		this.pwd = encriptar(pwd);
 		this.nace = nace;
 		this.nace.getNativos().add(this);
+		this.aficionesGusta = new ArrayList<Aficion>();
 	}
 	//========================
 
@@ -68,8 +77,22 @@ public class Persona {
 		this.nace = nace;
 		this.nace.getNativos().add(this);
 	}
-	//========================
 	
+	public Collection<Aficion> getAficionesGusta() {
+		return aficionesGusta;
+	}
+
+	public void setAficionesGusta(Collection<Aficion> aficionesGusta) {
+		this.aficionesGusta = aficionesGusta;
+	}
+	
+	
+	//========================
+
+	public void addAficionGusta(Aficion aficion) {
+		this.aficionesGusta.add(aficion);
+		aficion.getPersonasGustan().add(this);
+	}
 
 
 	private String encriptar(String pwd) {

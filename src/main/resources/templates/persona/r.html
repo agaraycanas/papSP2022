@@ -16,10 +16,14 @@
 			<th>
 				Nombre
 			</th>
+			<th>
+				País de nacimiento
+			</th>
 		</tr>
 
 		<tr th:each="persona:${personas} ">
 			<td th:text="${persona.nombre}" />
+			<td th:text="|${persona.nace.nombre} (${persona.nace.nativos.size()})|"/>
 		</tr>
 
 	</table>
