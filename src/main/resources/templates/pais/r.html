@@ -16,10 +16,21 @@
 			<th>
 				Nombre
 			</th>
+			<th>
+				Acciones
+			</th>
 		</tr>
 
 		<tr th:each="pais:${paises} ">
 			<td th:text="${pais.nombre}" />
+			<td>
+				<form action="/pais/u">
+					<button onclick="submit">
+						<img src="/img/lapiz.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idPais" th:value="${pais.id}"/>
+				</form>
+			</td>
 		</tr>
 
 	</table>

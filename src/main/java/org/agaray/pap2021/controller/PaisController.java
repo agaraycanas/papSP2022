@@ -42,4 +42,29 @@ public class PaisController {
 		}
 		return "redirect:/pais/r";
 	}
+	
+	@GetMapping("/pais/u")
+	public String u(
+			@RequestParam("idPais") Long idPais,
+			ModelMap m
+			) {
+		m.put("pais", paisRepository.getById(idPais));
+		m.put("view", "pais/u");
+		return "_t/frame";
+	}
+
+	@PostMapping("/pais/u")
+	public String uPost(
+			@RequestParam("idPais") Long idPais,
+			@RequestParam("nombre") String nombre
+			) throws DangerException {
+		try {
+			Pais pais = paisRepository.getById(idPais);
+			pais.setNombre(nombre);
+			paisRepository.save(pais);
+		} catch (Exception e) {
+			PRG.error("El país "+nombre+" ya existe", "/pais/r");
+		}
+		return "redirect:/pais/r";
+	}
 }

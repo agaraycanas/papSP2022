@@ -3,6 +3,9 @@ package org.agaray.pap2021.controller;
 import java.util.List;
 
 import org.agaray.pap2021.entities.Aficion;
+import org.agaray.pap2021.entities.Pais;
+import org.agaray.pap2021.exception.DangerException;
+import org.agaray.pap2021.exception.PRG;
 import org.agaray.pap2021.repository.AficionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,5 +44,30 @@ public class AficionController {
 			returnLocation = "redirect:/errorDisplay?msg=La afición " + nombre + " ya existe";
 		}
 		return returnLocation;
+	}
+	
+	@GetMapping("/aficion/u")
+	public String u(
+			@RequestParam("idAficion") Long idAficion,
+			ModelMap m
+			) {
+		m.put("aficion", aficionRepository.getById(idAficion));
+		m.put("view", "aficion/u");
+		return "_t/frame";
+	}
+
+	@PostMapping("/aficion/u")
+	public String uPost(
+			@RequestParam("idAficion") Long idAficion,
+			@RequestParam("nombre") String nombre
+			) throws DangerException {
+		try {
+			Aficion aficion = aficionRepository.getById(idAficion);
+			aficion.setNombre(nombre);
+			aficionRepository.save(aficion);
+		} catch (Exception e) {
+			PRG.error("La afición "+nombre+" ya existe", "/aficion/r");
+		}
+		return "redirect:/aficion/r";
 	}
 }
