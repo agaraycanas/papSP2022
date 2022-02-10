@@ -1,5 +1,7 @@
 package org.agaray.pap2021.entities;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,6 +25,7 @@ public class Persona {
 	@Column(unique = true)
 	private String nombre;
 	private String pwd;
+	private LocalDate fNac;
 	
 	@ManyToOne
 	private Pais nace;
@@ -36,9 +39,10 @@ public class Persona {
 		this.aficionesGusta = new ArrayList<Aficion>();
 	}
 	
-	public Persona(String nombre,String pwd,Pais nace) {
+	public Persona(String nombre,String pwd, LocalDate fnac,Pais nace) {
 		this.nombre = nombre;
 		this.pwd = encriptar(pwd);
+		this.fNac = fnac;
 		this.nace = nace;
 		this.nace.getNativos().add(this);
 		this.aficionesGusta = new ArrayList<Aficion>();
@@ -86,16 +90,38 @@ public class Persona {
 		this.aficionesGusta = aficionesGusta;
 	}
 	
+
+	public LocalDate getfNac() {
+		return fNac;
+	}
+
+	public void setfNac(LocalDate fNac) {
+		this.fNac = fNac;
+	}
+	
 	
 	//========================
+
 
 	public void addAficionGusta(Aficion aficion) {
 		this.aficionesGusta.add(aficion);
 		aficion.getPersonasGustan().add(this);
+		
 	}
 
 
 	private String encriptar(String pwd) {
 		return (new BCryptPasswordEncoder()).encode(pwd); 
+	}
+	
+	public Integer getEdad() {
+		int sol = 0;
+		LocalDate fNac = this.getfNac();
+		if (fNac!=null) {
+			LocalDate hoy = LocalDate.now();
+			Period intervalo = Period.between(fNac, hoy);
+			sol = intervalo.getYears();
+		}
+		return sol;
 	}
 }

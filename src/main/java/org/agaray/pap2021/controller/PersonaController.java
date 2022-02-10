@@ -1,5 +1,6 @@
 package org.agaray.pap2021.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.agaray.pap2021.repository.AficionRepository;
 import org.agaray.pap2021.repository.PaisRepository;
 import org.agaray.pap2021.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,11 +52,14 @@ public class PersonaController {
 	public String cPost(
 			@RequestParam("nombre") String nombre,
 			@RequestParam("pwd") String pwd,
+			@RequestParam("fNac")
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			LocalDate fNac,
 			@RequestParam("idPaisNace") Long idPaisNace,
 			@RequestParam(value="idAficion[]",required=false) List<Long> idsAficion
 			) throws DangerException {
 		try {
-			Persona persona = new Persona(nombre,pwd,paisRepository.getById(idPaisNace));
+			Persona persona = new Persona(nombre,pwd,fNac,paisRepository.getById(idPaisNace));
 			if (idsAficion!=null) {
 				for (Long idAficion:idsAficion) {
 					persona.addAficionGusta(aficionRepository.getById(idAficion));
