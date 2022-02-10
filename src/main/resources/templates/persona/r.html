@@ -30,7 +30,15 @@
 
 		<tr th:each="persona:${personas} ">
 			<td th:text="${persona.nombre}" />
+			
 			<td th:text="|${persona.nace.nombre} (${persona.nace.nativos.size()})|"/>
+			
+			<td>
+				<th:block 
+					th:each="aficion : ${persona.aficionesGusta}" 
+					th:text="|${aficion.nombre} |"/>
+			</td>
+			
 			<td>
 				<form action="/persona/u">
 					<button onclick="submit">
