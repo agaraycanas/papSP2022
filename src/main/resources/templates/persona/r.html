@@ -19,11 +19,26 @@
 			<th>
 				País de nacimiento
 			</th>
+			<th>
+				Aficiones
+			</th>
+			<th>
+				Acciones
+			</th>
+			
 		</tr>
 
 		<tr th:each="persona:${personas} ">
 			<td th:text="${persona.nombre}" />
 			<td th:text="|${persona.nace.nombre} (${persona.nace.nativos.size()})|"/>
+			<td>
+				<form action="/persona/u">
+					<button onclick="submit">
+						<img src="/img/lapiz.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idPersona" th:value="${persona.id}"/>
+				</form>
+			</td>
 		</tr>
 
 	</table>

@@ -1,7 +1,10 @@
 package org.agaray.pap2021.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.agaray.pap2021.entities.Aficion;
+import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.entities.Persona;
 import org.agaray.pap2021.exception.DangerException;
 import org.agaray.pap2021.exception.PRG;
@@ -57,6 +60,49 @@ public class PersonaController {
 					persona.addAficionGusta(aficionRepository.getById(idAficion));
 				}
 			}
+			personaRepository.save(persona);
+		} catch (Exception e) {
+			PRG.error("Error indeterminado al crear la persona "+e.getMessage());
+		}
+		return "redirect:/persona/r";
+	}
+	
+	@GetMapping("/persona/u")
+	public String u(
+			@RequestParam("idPersona") Long idPersona,
+			ModelMap m) {
+		m.put("persona", personaRepository.getById(idPersona));
+		m.put("paises", paisRepository.findAll());
+		m.put("aficiones", aficionRepository.findAll());
+		m.put("view", "persona/u");
+		return "_t/frame";
+	}
+	
+	@PostMapping("/persona/u")
+	public String uPost(
+			@RequestParam("nombre") String nombre,
+			@RequestParam("idPaisNace") Long idPaisNace,
+			@RequestParam("idPersona") Long idPersona,
+			@RequestParam(value="idAficion[]",required=false) List<Long> idsAficion
+			) throws DangerException {
+		try {
+			Persona persona = personaRepository.getById(idPersona);
+			persona.setNombre(nombre);
+			if (idPaisNace!=persona.getNace().getId()) {
+				Pais nuevoPaisNacimiento = paisRepository.getById(idPaisNace);
+				persona.setNace(nuevoPaisNacimiento);
+			}
+			
+			ArrayList<Aficion> nuevasAficiones = new ArrayList<Aficion>();
+			
+			if (idsAficion!=null) {
+				for (Long idAficion:idsAficion) {
+					nuevasAficiones.add(aficionRepository.getById(idAficion));
+				}
+			}
+			
+			persona.setAficionesGusta(nuevasAficiones);
+			
 			personaRepository.save(persona);
 		} catch (Exception e) {
 			PRG.error("Error indeterminado al crear la persona "+e.getMessage());
