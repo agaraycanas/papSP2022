@@ -14,8 +14,13 @@
 	<table class="table table-striped">
 		<tr>
 			<th>
+				Foto
+			</th>
+
+			<th>
 				Nombre
 			</th>
+			
 			<th>
 				País de nacimiento
 			</th>
@@ -35,6 +40,7 @@
 		</tr>
 
 		<tr th:each="persona:${personas} ">
+			<td> <img th:src="|/_upload/foto-${persona.id}|" height="50" width="50" /> </td>
 			<td th:text="${persona.nombre}" />
 			
 			<td th:text="|${persona.nace?.nombre} (${persona.nace?.nativos?.size()})|"/>

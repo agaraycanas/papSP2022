@@ -76,16 +76,21 @@ public class PersonaController {
 				}
 			}
 			
+			personaRepository.save(persona);
+
 			//Intentamos subir la foto
 			try {
 				byte[] bytes = foto.getBytes();
-				Path path = Paths.get(UPLOADED_FOLDER + foto.getOriginalFilename());
+				String extension = foto.getOriginalFilename().split("\\.")[1];
+				Path path = Paths.get(UPLOADED_FOLDER + "foto-"+persona.getId());
+				
 				Files.write(path, bytes);
 			}
 			catch (Exception e) {
 				PRG.error(e.getMessage());
 			}
-			personaRepository.save(persona);
+
+		
 		} catch (Exception e) {
 			PRG.error("Error indeterminado al crear la persona "+e.getMessage());
 		}
