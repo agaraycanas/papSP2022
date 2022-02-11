@@ -20,6 +20,9 @@
 				País de nacimiento
 			</th>
 			<th>
+				País de residencia
+			</th>
+			<th>
 				Edad
 			</th>
 			<th>
@@ -32,10 +35,12 @@
 		</tr>
 
 		<tr th:each="persona:${personas} ">
-			<td th:text="${persona?.nombre}" />
+			<td th:text="${persona.nombre}" />
 			
-			<td th:text="|${persona.nace.nombre} (${persona.nace.nativos.size()})|"/>
+			<td th:text="|${persona.nace?.nombre} (${persona.nace?.nativos?.size()})|"/>
 			
+			<td th:text="|${persona.vive?.nombre} (${persona.vive?.habitantes?.size()})|"/>
+
 			<td th:text="${persona.getEdad()}"/>
 				
 			

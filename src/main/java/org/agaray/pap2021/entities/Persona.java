@@ -30,6 +30,9 @@ public class Persona {
 	@ManyToOne
 	private Pais nace;
 	
+	@ManyToOne
+	private Pais vive;
+
 	@ManyToMany
 	private Collection<Aficion> aficionesGusta;
 
@@ -39,12 +42,17 @@ public class Persona {
 		this.aficionesGusta = new ArrayList<Aficion>();
 	}
 	
-	public Persona(String nombre,String pwd, LocalDate fnac,Pais nace) {
+	public Persona(String nombre,String pwd, LocalDate fnac,Pais nace, Pais vive) {
 		this.nombre = nombre;
 		this.pwd = encriptar(pwd);
 		this.fNac = fnac;
+		
 		this.nace = nace;
 		this.nace.getNativos().add(this);
+		
+		this.vive = vive;
+		this.vive.getHabitantes().add(this);
+
 		this.aficionesGusta = new ArrayList<Aficion>();
 	}
 	//========================
@@ -99,8 +107,17 @@ public class Persona {
 		this.fNac = fNac;
 	}
 	
-	
+	public Pais getVive() {
+		return vive;
+	}
+
+	public void setVive(Pais vive) {
+		this.vive = vive;
+		this.vive.getHabitantes().add(this);
+	}
 	//========================
+
+
 
 
 	public void addAficionGusta(Aficion aficion) {

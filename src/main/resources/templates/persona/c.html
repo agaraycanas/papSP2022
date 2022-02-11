@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Nueva persona</h1>
 
-	<form action="/persona/c" method="POST">
+	<form action="/persona/c" method="POST" enctype="multipart/form-data">
 		<label for="idNombre">Nombre </label>
 		<input id="idNombre" type="text" name="nombre" autofocus="autofocus" />
 		<br />
@@ -9,6 +9,11 @@
 		<label for="idPwd" >Contraseña </label>
 		<input id="idPwd" type="password" name="pwd" />
 		<br />
+		
+		<label for="idFoto" >Foto </label>
+		<input id="idFoto" type="file" name="foto" />
+		<br />
+		
 		
 		<label for="idFnac" >Fecha de nac.</label>
 		<input id="idFnac" type="date" name="fNac" />
@@ -20,6 +25,15 @@
 			País de nacimiento
 		</legend>
 		<select name="idPaisNace">
+			<option th:each="pais:${paises}" th:text="${pais.nombre}" th:value="${pais.id}"/>
+		</select>
+		</fieldset>
+		
+		<fieldset>
+		<legend>
+			País de residencia
+		</legend>
+		<select name="idPaisVive">
 			<option th:each="pais:${paises}" th:text="${pais.nombre}" th:value="${pais.id}"/>
 		</select>
 		</fieldset>
