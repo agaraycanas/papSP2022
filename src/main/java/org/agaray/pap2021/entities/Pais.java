@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,10 +22,10 @@ public class Pais {
 	@Column(unique = true)
 	private String nombre;
 	
-	@OneToMany(mappedBy = "nace", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "nace", fetch = FetchType.EAGER)
 	private Collection<Persona> nativos;
 
-	@OneToMany(mappedBy = "vive", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vive", fetch = FetchType.EAGER)
 	private Collection<Persona> habitantes;
 	//========================
 	public Pais() {

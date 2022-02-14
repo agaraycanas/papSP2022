@@ -5,8 +5,10 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,40 +28,40 @@ public class Persona {
 	private String nombre;
 	private String pwd;
 	private LocalDate fNac;
-	
-	@ManyToOne
+
+	@ManyToOne(optional = true)
 	private Pais nace;
-	
-	@ManyToOne
+
+	@ManyToOne(optional = true)
 	private Pais vive;
 
 	@ManyToMany
 	private Collection<Aficion> aficionesGusta;
 
-	//========================
+	// ========================
 	public Persona() {
-		this.nombre="dormir";
+		this.nombre = "dormir";
 		this.aficionesGusta = new ArrayList<Aficion>();
 	}
-	
-	public Persona(String nombre,String pwd, LocalDate fnac,Pais nace, Pais vive) {
+
+	public Persona(String nombre, String pwd, LocalDate fnac, Pais nace, Pais vive) {
 		this.nombre = nombre;
 		this.pwd = encriptar(pwd);
 		this.fNac = fnac;
-		
-		if (nace!=null) {
+
+		if (nace != null) {
 			this.nace = nace;
 			this.nace.getNativos().add(this);
 		}
-		
-		if (vive!=null) {
+
+		if (vive != null) {
 			this.vive = vive;
 			this.vive.getHabitantes().add(this);
 		}
 
 		this.aficionesGusta = new ArrayList<Aficion>();
 	}
-	//========================
+	// ========================
 
 	public Long getId() {
 		return id;
@@ -84,16 +86,21 @@ public class Persona {
 	public void setPwd(String pwd) {
 		this.pwd = encriptar(pwd);
 	}
-	
+
 	public Pais getNace() {
 		return nace;
 	}
 
 	public void setNace(Pais nace) {
+		if (nace==null && this.nace!=null) {
+			this.nace.getNativos().remove(this);
+		}
+		if (nace != null) {
+			this.nace.getNativos().add(this);
+		}
 		this.nace = nace;
-		this.nace.getNativos().add(this);
 	}
-	
+
 	public Collection<Aficion> getAficionesGusta() {
 		return aficionesGusta;
 	}
@@ -101,7 +108,6 @@ public class Persona {
 	public void setAficionesGusta(Collection<Aficion> aficionesGusta) {
 		this.aficionesGusta = aficionesGusta;
 	}
-	
 
 	public LocalDate getfNac() {
 		return fNac;
@@ -110,32 +116,37 @@ public class Persona {
 	public void setfNac(LocalDate fNac) {
 		this.fNac = fNac;
 	}
-	
+
 	public Pais getVive() {
 		return vive;
 	}
 
 	public void setVive(Pais vive) {
+		if (vive==null && this.vive!=null) {
+			this.vive.getHabitantes().remove(this);
+		}
 		this.vive = vive;
-		this.vive.getHabitantes().add(this);
+		if (vive != null) {
+			this.vive.getHabitantes().add(this);
+		}
 	}
-	
-	//========================
+
+	// ========================
 
 	public void addAficionGusta(Aficion aficion) {
 		this.aficionesGusta.add(aficion);
 		aficion.getPersonasGustan().add(this);
-		
+
 	}
 
 	private String encriptar(String pwd) {
-		return (new BCryptPasswordEncoder()).encode(pwd); 
+		return (new BCryptPasswordEncoder()).encode(pwd);
 	}
-	
+
 	public Integer getEdad() {
 		int sol = 0;
 		LocalDate fNac = this.getfNac();
-		if (fNac!=null) {
+		if (fNac != null) {
 			LocalDate hoy = LocalDate.now();
 			Period intervalo = Period.between(fNac, hoy);
 			sol = intervalo.getYears();
@@ -145,5 +156,10 @@ public class Persona {
 
 	public String getRol() {
 		return nombre.equals("pepe") ? "admin" : "auth";
+	}
+	
+	@Override
+	public String toString() {
+		return this.nombre;
 	}
 }
