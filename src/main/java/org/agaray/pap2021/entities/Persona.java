@@ -47,11 +47,15 @@ public class Persona {
 		this.pwd = encriptar(pwd);
 		this.fNac = fnac;
 		
-		this.nace = nace;
-		this.nace.getNativos().add(this);
+		if (nace!=null) {
+			this.nace = nace;
+			this.nace.getNativos().add(this);
+		}
 		
-		this.vive = vive;
-		this.vive.getHabitantes().add(this);
+		if (vive!=null) {
+			this.vive = vive;
+			this.vive.getHabitantes().add(this);
+		}
 
 		this.aficionesGusta = new ArrayList<Aficion>();
 	}
@@ -115,17 +119,14 @@ public class Persona {
 		this.vive = vive;
 		this.vive.getHabitantes().add(this);
 	}
+	
 	//========================
-
-
-
 
 	public void addAficionGusta(Aficion aficion) {
 		this.aficionesGusta.add(aficion);
 		aficion.getPersonasGustan().add(this);
 		
 	}
-
 
 	private String encriptar(String pwd) {
 		return (new BCryptPasswordEncoder()).encode(pwd); 
@@ -140,5 +141,9 @@ public class Persona {
 			sol = intervalo.getYears();
 		}
 		return sol;
+	}
+
+	public String getRol() {
+		return nombre.equals("pepe") ? "admin" : "auth";
 	}
 }

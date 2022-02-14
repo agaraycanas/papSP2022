@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.agaray.pap2021.entities.Aficion;
 import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.entities.Persona;
@@ -41,7 +43,8 @@ public class PersonaController {
 	private String UPLOADED_FOLDER;  //
 
 	@GetMapping("/persona/r")
-	public String r(ModelMap m) {
+	public String r(ModelMap m,
+			HttpSession s) throws DangerException {
 		List<Persona> personas = personaRepository.findAll();
 		m.put("personas", personas);
 		m.put("view", "persona/r");
@@ -60,8 +63,8 @@ public class PersonaController {
 	public String cPost(
 			@RequestParam("nombre") String nombre,
 			@RequestParam("pwd") String pwd,
-			@RequestParam("foto") MultipartFile foto,
-			@RequestParam("fNac")
+			@RequestParam(value="foto", required=false) MultipartFile foto,
+			@RequestParam(value="fNac",required=false)
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			LocalDate fNac,
 			@RequestParam(value="idPaisNace",required=false) Long idPaisNace,
@@ -69,7 +72,9 @@ public class PersonaController {
 			@RequestParam(value="idAficion[]",required=false) List<Long> idsAficion
 			) throws DangerException {
 		try {
-			Persona persona = new Persona(nombre,pwd,fNac,paisRepository.getById(idPaisNace),paisRepository.getById(idPaisVive));
+			Pais paisNace= idPaisNace==null?null:paisRepository.getById(idPaisNace);
+			Pais paisVive = idPaisVive==null ? null :paisRepository.getById(idPaisVive);
+			Persona persona = new Persona(nombre,pwd,fNac,paisNace,paisVive);
 			if (idsAficion!=null) {
 				for (Long idAficion:idsAficion) {
 					persona.addAficionGusta(aficionRepository.getById(idAficion));
@@ -80,11 +85,12 @@ public class PersonaController {
 
 			//Intentamos subir la foto
 			try {
-				byte[] bytes = foto.getBytes();
-				String extension = foto.getOriginalFilename().split("\\.")[1];
-				Path path = Paths.get(UPLOADED_FOLDER + "foto-"+persona.getId());
-				
-				Files.write(path, bytes);
+				if (foto!=null) {
+					byte[] bytes = foto.getBytes();
+					//String extension = foto.getOriginalFilename().split("\\.")[1];
+					Path path = Paths.get(UPLOADED_FOLDER + "foto-"+persona.getId());
+					Files.write(path, bytes);
+				}
 			}
 			catch (Exception e) {
 				PRG.error(e.getMessage());
@@ -137,6 +143,14 @@ public class PersonaController {
 		} catch (Exception e) {
 			PRG.error("Error indeterminado al crear la persona "+e.getMessage());
 		}
+		return "redirect:/persona/r";
+	}
+	
+	@PostMapping("/persona/d")
+	public String dPost(
+			@RequestParam("idPersona") Long idPersona
+			) {
+		personaRepository.deleteById(idPersona);
 		return "redirect:/persona/r";
 	}
 }

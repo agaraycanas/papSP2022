@@ -3,6 +3,7 @@ package org.agaray.pap2021.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,10 +21,10 @@ public class Pais {
 	@Column(unique = true)
 	private String nombre;
 	
-	@OneToMany(mappedBy = "nace")
+	@OneToMany(mappedBy = "nace", cascade = CascadeType.ALL)
 	private Collection<Persona> nativos;
 
-	@OneToMany(mappedBy = "vive")
+	@OneToMany(mappedBy = "vive", cascade = CascadeType.ALL)
 	private Collection<Persona> habitantes;
 	//========================
 	public Pais() {

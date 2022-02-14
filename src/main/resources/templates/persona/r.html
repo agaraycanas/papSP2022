@@ -40,7 +40,9 @@
 		</tr>
 
 		<tr th:each="persona:${personas} ">
-			<td> <img th:src="|/_upload/foto-${persona.id}|" height="50" width="50" /> </td>
+			<td>
+				<img th:src="|/_upload/foto-${persona.id}|" height="50" width="50" alt="FOTO"/> 
+			</td>
 			<td th:text="${persona.nombre}" />
 			
 			<td th:text="|${persona.nace?.nombre} (${persona.nace?.nativos?.size()})|"/>
@@ -56,10 +58,16 @@
 					th:text="|${aficion.nombre} / |"/>
 			</td>
 			
-			<td>
+			<td class="row">
 				<form action="/persona/u">
 					<button onclick="submit">
 						<img src="/img/lapiz.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idPersona" th:value="${persona.id}"/>
+				</form>
+				<form action="/persona/d" method="POST">
+					<button onclick="submit">
+						<img src="/img/basura.png" height="20" width="20"/>
 					</button>
 					<input type="hidden" name="idPersona" th:value="${persona.id}"/>
 				</form>

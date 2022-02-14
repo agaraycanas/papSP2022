@@ -3,6 +3,8 @@ package org.agaray.pap2021.controller;
 import javax.servlet.http.HttpSession;
 
 import org.agaray.pap2021.entities.Persona;
+import org.agaray.pap2021.exception.DangerException;
+import org.agaray.pap2021.helper.H;
 import org.agaray.pap2021.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,7 +43,10 @@ public class HomeController {
 	}
 	
 	@GetMapping("/login")
-	public String login(ModelMap m) {
+	public String login(
+			ModelMap m,
+			HttpSession s) throws DangerException {
+		H.isRolOK("anon", s);
 		m.put("view", "home/login");
 		return "_t/frame";
 	}

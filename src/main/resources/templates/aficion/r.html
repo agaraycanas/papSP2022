@@ -23,14 +23,20 @@
 
 		<tr th:each="aficion:${aficiones} ">
 			<td th:text="${aficion.nombre}" />
-			<td>
+			<td class="row">
 				<form action="/aficion/u">
 					<button onclick="submit">
 						<img src="/img/lapiz.png" height="20" width="20"/>
 					</button>
 					<input type="hidden" name="idAficion" th:value="${aficion.id}"/>
 				</form>
-				</td>
+				<form action="/aficion/d" method="post">
+					<button onclick="submit">
+						<img src="/img/basura.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idAficion" th:value="${aficion.id}"/>
+				</form>
+			</td>
 		</tr>
 
 	</table>
