@@ -1,11 +1,11 @@
-package org.agaray.pap2021.controller;
+package org.agaray.pap2021.controller.web;
 
 import java.util.List;
 
 import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.exception.DangerException;
 import org.agaray.pap2021.exception.PRG;
-import org.agaray.pap2021.repository.PaisRepository;
+import org.agaray.pap2021.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PaisController {
 
 	@Autowired
-	private PaisRepository paisRepository;
+	private PaisService paisService;
 
 	@GetMapping("r")
 	public String r(ModelMap m) {
-		List<Pais> paises = paisRepository.findAll();
+		List<Pais> paises = paisService.findAll();
 		m.put("paises", paises);
 		m.put("view", "pais/r");
 		return "_t/frame";
@@ -38,7 +38,7 @@ public class PaisController {
 	@PostMapping("c")
 	public String cPost(@RequestParam("nombre") String nombre) throws DangerException {
 		try {
-			paisRepository.save(new Pais(nombre));
+			paisService.save(nombre);
 		} catch (Exception e) {
 			PRG.error("El país "+nombre+" ya existe", "/pais/c");
 		}
@@ -50,7 +50,7 @@ public class PaisController {
 			@RequestParam("idPais") Long idPais,
 			ModelMap m
 			) {
-		m.put("pais", paisRepository.getById(idPais));
+		//m.put("pais", paisService.getById(idPais));
 		m.put("view", "pais/u");
 		return "_t/frame";
 	}
@@ -61,9 +61,9 @@ public class PaisController {
 			@RequestParam("nombre") String nombre
 			) throws DangerException {
 		try {
-			Pais pais = paisRepository.getById(idPais);
-			pais.setNombre(nombre);
-			paisRepository.save(pais);
+			//Pais pais = paisService.getById(idPais);
+			//pais.setNombre(nombre);
+			//paisService.save(pais);
 		} catch (Exception e) {
 			PRG.error("El país "+nombre+" ya existe", "/pais/r");
 		}
@@ -74,7 +74,7 @@ public class PaisController {
 	public String dPost(
 			@RequestParam("idPais") Long idPais
 			) {
-		paisRepository.deleteById(idPais);
+		//paisService.deleteById(idPais);
 		return "redirect:/pais/r";
 	}
 }

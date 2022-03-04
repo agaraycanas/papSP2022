@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Pais {
 
@@ -22,9 +24,11 @@ public class Pais {
 	private String nombre;
 	
 	@OneToMany(mappedBy = "nace", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Persona> nativos;
 
 	@OneToMany(mappedBy = "vive", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Persona> habitantes;
 	//========================
 	public Pais() {
