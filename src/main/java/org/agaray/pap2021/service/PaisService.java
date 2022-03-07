@@ -17,8 +17,15 @@ public class PaisService {
 		return paisRepository.findAll();
 	}
 
-	public void save(String nombre) {
-		paisRepository.save(new Pais(nombre));
+	public Pais save(String nombre) {
+		return paisRepository.save(new Pais(nombre));
+	}
+	
+	public Pais update(Long id,String nombre) {
+		Pais pais = paisRepository.getById(id);
+		pais.setNombre(nombre);
+		paisRepository.save(pais);
+		return pais;
 	}
 
 

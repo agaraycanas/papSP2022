@@ -5,10 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.agaray.pap2021.entities.Aficion;
-import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.exception.DangerException;
 import org.agaray.pap2021.exception.PRG;
-import org.agaray.pap2021.helper.H;
 import org.agaray.pap2021.repository.AficionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
