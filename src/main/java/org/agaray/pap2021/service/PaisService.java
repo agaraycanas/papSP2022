@@ -21,11 +21,15 @@ public class PaisService {
 		return paisRepository.save(new Pais(nombre));
 	}
 	
-	public Pais update(Long id,String nombre) {
-		Pais pais = paisRepository.getById(id);
-		pais.setNombre(nombre);
-		paisRepository.save(pais);
+	public Pais update(Pais pais) {
+		Pais p = paisRepository.getById(pais.getId());
+		p.setNombre(pais.getNombre());
+		paisRepository.saveAndFlush(p);
 		return pais;
+	}
+
+	public void delete(Long id) {
+		paisRepository.deleteById(id);
 	}
 
 

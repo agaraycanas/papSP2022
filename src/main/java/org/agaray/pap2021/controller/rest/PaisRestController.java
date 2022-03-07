@@ -2,12 +2,16 @@ package org.agaray.pap2021.controller.rest;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.agaray.pap2021.entities.Pais;
 import org.agaray.pap2021.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,14 +42,26 @@ public class PaisRestController {
 	
 	@PutMapping("u")
 	public Pais u(
-		@RequestParam("id") Long id,
-		@RequestParam("nombre") String nombre)  {
-		Pais pais = null;
+		@RequestBody Pais pais)  {
 		try {
-			pais = paisService.update(id, nombre);
+			pais = paisService.update(pais);
 		} catch (Exception e) {
 		}
 		return pais;
+	}
+	
+	@DeleteMapping("d")
+	public Pais d(
+			@RequestParam("id") Long id
+			) {
+		
+		try {
+			paisService.delete(id);
+		}
+		catch (Exception e) {
+			
+		}
+		return null;
 	}
 	
 }
