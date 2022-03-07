@@ -6,11 +6,12 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Pais {
@@ -22,10 +23,12 @@ public class Pais {
 	@Column(unique = true)
 	private String nombre;
 	
-	@OneToMany(mappedBy = "nace", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "nace", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Persona> nativos;
 
-	@OneToMany(mappedBy = "vive", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "vive", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Collection<Persona> habitantes;
 	//========================
 	public Pais() {

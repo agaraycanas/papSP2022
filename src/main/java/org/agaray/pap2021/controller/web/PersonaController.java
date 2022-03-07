@@ -1,4 +1,4 @@
-package org.agaray.pap2021.controller;
+package org.agaray.pap2021.controller.web;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

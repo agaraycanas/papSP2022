@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class Pap2022Application {
 
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Pap2022Application.class, args);
 	}
