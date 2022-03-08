@@ -1,4 +1,4 @@
-package org.agaray.pap2021.service;
+package org.agaray.pap2021.service.web;
 
 import java.util.List;
 

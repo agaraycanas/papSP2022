@@ -5,7 +5,7 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 
 import org.agaray.pap2021.entities.Pais;
-import org.agaray.pap2021.service.PaisService;
+import org.agaray.pap2021.service.web.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/rest/pais")
+@RequestMapping("/REST/pais")
 public class PaisRestController {
 	
 	@Autowired

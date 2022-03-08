@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="row">
+		<form action="/pais/c">
+			<input type="submit" value="Nuevo país" />
+		</form>
+
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
+
+	<h3>Lista de países (procedentes de REST)</h3>
+
+	<table class="table table-striped">
+		<tr>
+			<th>
+				Nombre
+			</th>
+			<th>
+				Acciones
+			</th>
+		</tr>
+
+		<tr th:each="pais:${paises} ">
+			<td th:text="${pais.nombre}" />
+			<td class="row">
+				<form action="/pais/u">
+					<button onclick="submit">
+						<img src="/img/lapiz.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idPais" th:value="${pais.id}"/>
+				</form>
+				<form action="/pais/d" method="post">
+					<button onclick="submit">
+						<img src="/img/basura.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idPais" th:value="${pais.id}"/>
+				</form>
+			</td>
+		</tr>
+
+	</table>
+	<br />
+
+	</diviv>
