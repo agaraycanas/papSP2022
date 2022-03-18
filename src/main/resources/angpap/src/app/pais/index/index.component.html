@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>Países</h1>
+
+    <a href="#" routerLink="/pais/create" class="btn btn-success">Nuevo país</a>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th width="220px">Acción</th>
+        </tr>
+
+        <tr *ngFor="let pais of paises">
+            <td>{{pais.id}}</td>
+            <td>{{pais.nombre}}</td>
+            <td>
+                <a href="#" [routerLink]="['/pais/',pais.id,'view']" class="btn btn-info">Ver</a>
+                <a href="#" [routerLink]="['/pais/',pais.id,'edit']" class="btn btn-info">Editar</a>
+                <button type="button" (click)="deletePais(pais.id)" class="btn btn-danger">Borrar</button>
+            </td>
+        </tr>
+    </table>
+</div>
