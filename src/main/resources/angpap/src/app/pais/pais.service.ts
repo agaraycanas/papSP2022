@@ -13,17 +13,18 @@ export class PaisService {
   private apiURL = 'http://localhost:8080';
 
   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+    headers: new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*')
   }
 
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<any> {
     return this.httpClient
-      .get(this.apiURL + '/paises/')
-      .pipe(
+    .get(this.apiURL + '/paises/',this.httpOptions)
+//    .get(this.apiURL + '/REST/pais/r',this.httpOptions)
+    .pipe(
         catchError(this.errorHandler)
       )
   }

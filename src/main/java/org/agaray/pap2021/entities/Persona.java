@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 @Entity
 public class Persona {
 
@@ -138,7 +136,10 @@ public class Persona {
 	}
 
 	private String encriptar(String pwd) {
+		/*
 		return (new BCryptPasswordEncoder()).encode(pwd);
+		*/
+		return "";
 	}
 
 	public Integer getEdad() {

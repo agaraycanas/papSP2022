@@ -2,24 +2,14 @@ package org.agaray.pap2021.controller.web;
 
 import javax.servlet.http.HttpSession;
 
-import org.agaray.pap2021.entities.Persona;
-import org.agaray.pap2021.exception.DangerException;
-import org.agaray.pap2021.helper.H;
-import org.agaray.pap2021.repository.PersonaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
 	
 
-	@Autowired
-	private PersonaRepository personaRepository;
 
 	@GetMapping("/info")
 	public String info(
@@ -43,6 +33,7 @@ public class HomeController {
 		return "/_t/frame";
 	}
 	
+	/*
 	@GetMapping("/login")
 	public String login(
 			ModelMap m,
@@ -75,6 +66,7 @@ public class HomeController {
 		s.invalidate();
 		return "redirect:/";
 	}
+	*/
 
 	@GetMapping("/")
 	public String index(ModelMap m) {
