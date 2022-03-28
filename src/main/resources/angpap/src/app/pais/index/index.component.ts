@@ -15,8 +15,8 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.paisService.getAll().subscribe(
-      (data: Pais[]) => {
-        this.paises = data;
+      (data) => {
+        this.paises = data._embedded.paises;
         console.log(this.paises)
       }
     );

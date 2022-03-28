@@ -5,7 +5,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "*")
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RepositoryRestResource(collectionResourceRel = "paises", path = "paises")
 public interface PaisRestRepository extends PagingAndSortingRepository<Pais,Long> {
     

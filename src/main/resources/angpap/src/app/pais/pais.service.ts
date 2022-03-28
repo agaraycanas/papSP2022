@@ -23,9 +23,8 @@ export class PaisService {
   getAll(): Observable<any> {
     return this.httpClient
     .get(this.apiURL + '/paises/',this.httpOptions)
-//    .get(this.apiURL + '/REST/pais/r',this.httpOptions)
     .pipe(
-        catchError(this.errorHandler)
+      catchError(this.errorHandler)
       )
   }
 
