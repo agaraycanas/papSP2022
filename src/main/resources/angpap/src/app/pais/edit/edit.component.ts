@@ -1,30 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../post.service';
+import { PaisService } from '../pais.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from '../post';
+import { Pais } from '../pais';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
    
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
     
-  id: number;
-  post: Post;
-  form: FormGroup;
+  id!: number;
+  pais!: Pais;
+  form!: FormGroup;
   
   constructor(
-    public postService: PostService,
+    public paisService: PaisService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
   
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['postId'];
-    this.postService.find(this.id).subscribe((data: Post)=>{
-      this.post = data;
+    this.id = this.route.snapshot.params['paisId'];
+    this.paisService.find(this.id).subscribe((data: Pais)=>{
+      this.pais = data;
     });
     
     this.form = new FormGroup({
@@ -39,9 +39,9 @@ export class EditComponent implements OnInit {
      
   submit(){
     console.log(this.form.value);
-    this.postService.update(this.id, this.form.value).subscribe(res => {
-         console.log('Post updated successfully!');
-         this.router.navigateByUrl('post/index');
+    this.paisService.update(this.id, this.form.value).subscribe(res => {
+         console.log('País actualizado con éxito');
+         this.router.navigateByUrl('pais/index');
     })
   }
    

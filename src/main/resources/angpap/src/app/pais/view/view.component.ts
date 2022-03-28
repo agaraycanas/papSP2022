@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../post.service';
+import { PaisService } from '../pais.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from '../post';
+import { Pais } from '../pais';
   
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
    
-  id: number;
-  post: Post;
+  id!: number;
+  pais!: Pais;
    
   constructor(
-    public postService: PostService,
+    public paisService: PaisService,
     private route: ActivatedRoute,
     private router: Router
    ) { }
   
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['postId'];
+    this.id = this.route.snapshot.params['paisId'];
       
-    this.postService.find(this.id).subscribe((data: Post)=>{
-      this.post = data;
+    this.paisService.find(this.id).subscribe((data: Pais)=>{
+      this.pais = data;
     });
   }
   
