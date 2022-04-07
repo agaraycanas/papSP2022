@@ -11,9 +11,9 @@
                 formControlName="title"
                 id="title" 
                 type="text" 
-                [(ngModel)]="post.title"
+                [(ngModel)]="pais.nombre"
                 class="form-control">
-            <div *ngIf="f.title.touched && f.title.invalid" class="alert alert-danger">
+            <div *ngIf="f.nombre.touched && f.nombre.invalid" class="alert alert-danger">
                 <div *ngIf="f.title.errors?.required">Title is required.</div>
             </div>
         </div>
