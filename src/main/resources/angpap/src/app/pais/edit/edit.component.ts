@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from '../post';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { Pais } from '../pais';
+import { PaisService } from '../pais.service';
    
 @Component({
   selector: 'app-edit',
@@ -11,20 +11,20 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 })
 export class EditComponent implements OnInit {
     
-  id: number;
-  post: Post;
-  form: FormGroup;
+  id!: number;
+  pais!: Pais;
+  form!: FormGroup;
   
   constructor(
-    public postService: PostService,
+    public paisService: PaisService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
   
   ngOnInit(): void {
     this.id = this.route.snapshot.params['postId'];
-    this.postService.find(this.id).subscribe((data: Post)=>{
-      this.post = data;
+    this.paisService.find(this.id).subscribe((data: Pais)=>{
+      this.pais = data;
     });
     
     this.form = new FormGroup({
@@ -39,7 +39,7 @@ export class EditComponent implements OnInit {
      
   submit(){
     console.log(this.form.value);
-    this.postService.update(this.id, this.form.value).subscribe(res => {
+    this.paisService.update(this.id, this.form.value).subscribe(res => {
          console.log('Post updated successfully!');
          this.router.navigateByUrl('post/index');
     })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from '../post';
+import { PaisService } from '../pais.service';
+import { Pais } from '../pais';
   
 @Component({
   selector: 'app-view',
@@ -10,20 +10,20 @@ import { Post } from '../post';
 })
 export class ViewComponent implements OnInit {
    
-  id: number;
-  post: Post;
+  id!: number;
+  pais!: Pais;
    
   constructor(
-    public postService: PostService,
+    public paisService: PaisService,
     private route: ActivatedRoute,
     private router: Router
    ) { }
   
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['postId'];
+    this.id = this.route.snapshot.params['paisId'];
       
-    this.postService.find(this.id).subscribe((data: Post)=>{
-      this.post = data;
+    this.paisService.find(this.id).subscribe((data)=>{
+      this.pais= data._embedded;
     });
   }
   
