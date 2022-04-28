@@ -13,13 +13,8 @@
                 type="text" 
                 [(ngModel)]="pais.nombre"
                 class="form-control">
-<<<<<<< HEAD
-            <div *ngIf="f.nombre.touched && f.nombre.invalid" class="alert alert-danger">
-                <div *ngIf="f.title.errors?.required">Title is required.</div>
-=======
             <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="alert alert-danger">
                 <div *ngIf="f['nombre'].errors && f['nombre'].errors['required']">El nombre es obligatorio</div>
->>>>>>> 7a9bb6cea82952c26d1f9da30db7ff45fc322d11
             </div>
         </div>
          
