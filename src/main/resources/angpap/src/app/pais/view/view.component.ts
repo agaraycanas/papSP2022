@@ -16,7 +16,7 @@ export class ViewComponent implements OnInit {
   constructor(
     public paisService: PaisService,
     private route: ActivatedRoute,
-    private router: Router
+    //private router: Router
    ) { }
   
   ngOnInit(): void {

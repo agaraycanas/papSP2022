@@ -72,7 +72,7 @@ export class PaisService {
       errorMessage = error.error.message;
     }
     else {
-      errorMessage = `Error Code: ${error.status}|nMessage: ${error.message}`;
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);
   }
